@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+char T[15][15];
+char j1[4], j2[4],j3[4],j4[4];
+int joueur=1;
+
+
+int main()
+{
+	initialiser(T);
+	menu();
+
+	return 0;
+}

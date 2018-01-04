@@ -1,0 +1,31 @@
+EXEC=chevaux
+# définit la  variable OBJS, liste des fichiers objets du projet
+OBJS=chevaux.o
+
+# définit la  variable CC, sert à indiquer le nom du compilateur à utiliser
+CC=gcc
+
+# définit la  variable CFLAGS, options de compilation
+CFLAGS=-Wall  -O -g
+
+# définit la  variable LDFLAGS, options de linkage
+LDFLAGS=
+# regroupe la totalité des exécutables à créer
+all: $(EXEC) clean-objs
+$(EXEC): $(OBJS)
+	$(CC) $(LDFLAGS) -o $(EXEC) $(OBJS)
+
+# définit une règle de conversion pour le passage de .c à .o, explique comment passe de l"un à l'autre
+.c.o:
+	$(CC) -c $(CFLAGS) $< -o $@
+
+# définit quel type de fichier supprimer, ici les .o, que l'ont a définit dans notre variable OBJS
+clean-objs:
+	rm -f $(OBJS)
+# supprime également l'executable
+clean: clean-objs
+	rm -f $(EXEC)
+
+# efface les fichiers objets (.o) du projet
+.PHONY: clean clean-objs all
+.SUFFIXES: .c .o

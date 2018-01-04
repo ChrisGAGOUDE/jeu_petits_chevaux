@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "fonctions.h"
+#define goto(x,y)    printf("\033[%d;%dH",y,x)
+
+char T[15][15];
+char j1[4];
+char j2[4];
+char j3[4];
+char j4[4];
+
+/*void camp(int x, int y)
+{
+	goto(x,y);
+	putchar(197);
+}	
+*/
+void initialiser(char T[15][15])
+{
+	int i,j;
+
+  	for (i=0;i<15;i++)
+  	{
+    		for (j=0;j<15;j++) T[i][j]=' ';
+  	}
+}
+
+void afficheregles(){
+
+	printf("LES REGLES DU JEU\n");
+	printf("Nombre de Joueurs 2 à 4\n");
+	printf("BUT DU JEU\n");
+	printf("\tFaire le tour du plateau avec ses quatre petits chevaux et les rentrer tous à l'écurie.\n");
+	printf("COMMENT JOUER\n");
+	printf("\tChaque joueur prend quatre chevaux de la même couleur et les place dans l'enclos correspondant. Le premier joueur qui fait six commence. Il place un cheval sur sa case départ, relance le dé et avance son cheval sur le plateau dans le sens des aiguilles d'une montre.\n");
+	printf("\tA chaque tour on relance le dé et on avance le cheval de son choix d'autant de cases que de points obtenus au dé. Lorsqu'on fait un 6, on peut faire sortir un nouveau cheval de son enclos ou faire avancer un cheval qui est déjà sur le circuit. Dans les deux cas, on rejoue.\n");
+	printf("\tSi un cheval arrive sur une case où se trouve déjà un cheval adverse, il le renvoie dans son enclos. Quand deux chevaux de la même couleur sont sur la même case, personne n'a le droit de les dépasser. Tout mouvement qui mène un troisième cheval (de la même équipe ou adverse) sur la même case ou plus loin est annulé. Cette règle peut ne pas être jouée, le décider en début de partie.\n");
+	printf("\tQuand un cheval a effectué un tour complet, et se trouve dans la case située juste devant l'escalier de sa couleur, il doit remonter marche par marche jusqu'au carré central, l'écurie. Pour cela, on doit obtenir à chaque fois le chiffre inscrit dans la case, et encore un 6 pour entrer à l'écurie. Dans l'escalier, les chevaux ne peuvent ni se dépasser ni occuper la même case.\n");
+}
+
+
+void afficheplateau (char T[15][15])
+{
+	int i;
+
+	void camp(int x,int y);
+	printf("\n\n       A   B   C   D   E   F   G   H   I   J   K   L   M   N   O\n\n\n");
+	for(i = 15;i>=1;i--){
+        	printf("  %d\t\t\t\t\t\t\t\t    %d\n\n\n",i,i);
+	}
+     	printf("       A   B   C   D   E   F   G   H   I   J   K   L   M   N   O\n\n");
+	
+	for(i=1;i<81;i++)   // 81 : largeur de la fenetre
+    	{
+      		goto(i,1);       // 1 : la ligne numero 1 juste avant le plateau
+
+      		if(i == 57)      // 57 : la colonne 57, l'intersection avec la ligne (2)
+      			putchar(203);
+      		else
+      			putchar(205);
+    }
+}
+
+
+void menu ()
+{
+	int choix;
+ 
+	do
+  	{
+    
+   		printf ("\n===MENU===\n");
+    		printf ("0 - Abandonner.\n");
+    		printf ("1 - Règles du jeu.\n");
+    		printf ("2 - Voir le plateau du jeu.\n");
+    		printf ("3 - Jouer.\n");
+
+    		printf ("\nEntrez votre choix : ");
+    		scanf ("%d", &choix);
+    		printf ("\n");
+
+    		switch (choix)
+    		{
+      			case 0 : printf ("Vous avez abandonne.Peut être une prochaine fois.\n"); break;
+      			case 1 : afficheregles (); break;
+      			case 2 : afficheplateau (T); break;
+      			case 3 : //if (joueur==1) jouer (1); else jouer(2); tour ()
+				; break;
+      			case 4 : //tour ()
+				; break;
+      			default : printf ("Choix invalide.\n");
+    		}
+  	}
+  while (choix!=0);
+}
